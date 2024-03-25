@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import {FaSearch} from 'react-icons/fa'
+import {FaSearch,FaTrash,FaEdit} from 'react-icons/fa'
 import { useEffect } from 'react'
 import axios from 'axios'
-
+import { Link } from 'react-router-dom'
 export default function User() {
     const [data,setData ]  = useState([])
 console.log('data',data)
@@ -44,6 +44,15 @@ console.log('data',data)
                     <span className='font-bold text-xl'>Addres:</span>
                     <span>{user.address}</span>
                     </div>
+                    <span className='flex  items-center flex-end  justify-end gap-5 text-red-500 mt-2'>
+                        <Link to={`/edit/${user._id}`}> 
+                        <FaEdit/>
+                        
+                        </Link>
+                        <Link to={`/delete/${user._id}`}>
+                        <FaTrash/>
+                        </Link>
+                    </span>
                    
                 </div>
                 )
