@@ -1,10 +1,12 @@
 import express from "express";
 import mongoose, { mongo } from "mongoose";
 import dotenv from "dotenv";
+import cors from'cors' 
 import { userModel } from "./models/user-model.js";
 dotenv.config();
 const app = express();
 app.use(express.json());
+app.use(cors())
 // connect to the database
 mongoose
   .connect("mongodb://localhost:27017/ManageContacts")
@@ -17,7 +19,7 @@ mongoose
 
 // insertion api
 app.post("/api/create-user", async (req, res) => {
-  console.log("started");
+  console.log("started",req.body);
   const { username, email, phone, address } = req.body; //  user waxa uu soo galiye
   try {
     const isUserExists = await userModel.findOne({
@@ -41,6 +43,8 @@ app.post("/api/create-user", async (req, res) => {
     return res.status(500).json(error);
   }
 });
+
+// update api
 app.put("/update-user/:id", async (req, res) => {
   console.log("user updated function executed");
   const { username, email, phone, address } = req.body; //  user waxa uu soo galiye
@@ -80,7 +84,7 @@ app.delete("/delete-user/:id", async (req, res) => {
     return res.status(500).json(error);
   }
 });
-
+// get api
 app.get("/api/users", async (req, res) => {
   try {
     const findUsers = await userModel.find();

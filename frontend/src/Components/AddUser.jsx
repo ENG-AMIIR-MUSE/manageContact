@@ -1,23 +1,33 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function AddUser() {
     const [username,setUsername] =  useState('')
     const [email,setEmail] =  useState('')
     const [phone,setPhone] =  useState('')
     const [address,setAddress] =  useState('')
+    const nav =  useNavigate()
     const [loading,setLoading] = useState(false)
     const handleSubmit  = async(e)=>{
         e.preventDefault()
         const formData  = new FormData()
-
-        formData.append('username',username)
-        formData.append('email',email)
-        formData.append('phone',phone)
-        formData.append('address',address)
+        if(username){
+          console.log('exists')
+        }else{
+          consoel.lgo('Not ')
+        }
+        
         try {
-          const {data} = await  axios.post('/api/create-user',formData)
+          const {data} = await  axios.post("/api/create-user",{
+            username,
+            email,
+            phone,
+            address,
+            
+          })
           console.log('data from the server',data)
+          nav('/')
         } catch (error) {
             console.log(error)
         }
